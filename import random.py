@@ -6,7 +6,7 @@ rus_lower_alphabet = "абвгдежзийклмнопрстуфхцчшщъыь
 
 
 word_list = []
-with open("D:/Python_files/hangman/word_rus.txt", encoding="utf8") as file:
+with open("D:/Python_files/Hangman/word_rus.txt", encoding="utf8") as file:
     for line in file:
         word_list.append(line.strip())
 
@@ -131,10 +131,15 @@ def play(word):
             if lang == "r":
 
                 alphabet = input("Введите букву или слово целиком:").upper()
-                if alphabet not in rus_upper_alphabet and alphabet not in get_word(
-                    word_list
-                ):
+                if not alphabet.isalpha():
                     print("Повторите ввод")
+                else:
+
+                    return alphabet
+            else:
+                alphabet = input("Enter the letter or word chief:").upper()
+                if not alphabet.isalpha():
+                    print("Please, re-enter: ")
                 else:
                     return alphabet
 
