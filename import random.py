@@ -121,7 +121,9 @@ def play(word):
     def valid_input():
         while True:
             if lang == "r":
-                alphabet = input("Введите букву или слово целиком:").upper()
+                alphabet = input(
+                    "Введите букву или слово целиком:"
+                ).upper()  # Но тут после повторного ввода, программа завершает работу
                 print()
                 if not alphabet.isalpha():
                     print("Повторите ввод")
@@ -149,7 +151,7 @@ def play(word):
                         if input_Letter == i:
                             res += i
                     print(res)
-                    return res, valid_input()
+                    return res, valid_input()  # Тут я по идее возвращаюсь к вводу
                 else:
                     print("Вы не угалали букву :(")
                     print(display_hangman(tries - 1))
@@ -164,11 +166,12 @@ def play(word):
                         if input_Letter == i:
                             res += i
                     print(res)
-                    return res
+                    return res, valid_input()  # Тут я по идее возвращаюсь к вводу
                 else:
                     print("You missed the letter :(")
                     print(display_hangman(tries - 1))
                     print(f"Your number of tries: {tries-1}")
+                    pass
 
     Letter_in_a_word(get_word(word_list), input_val)
 
