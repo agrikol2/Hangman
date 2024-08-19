@@ -1,22 +1,15 @@
-from random import *
-from string import ascii_uppercase, ascii_lowercase
-
-rus_upper_alphabet = "АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-rus_lower_alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
+import random
 
 
-word_list = []
-with open("D:/Python_files/Hangman/word_rus.txt", encoding="utf8") as file:
-    for line in file:
-        word_list.append(line.strip())
+word_list = ["ПОЯСОЧЕК"]
+# with open("D:/Python_files/Hangman/word_rus.txt", encoding="utf8") as file:
+#     for line in file:
+#         word_list.append(line.strip())
 
 
 def get_word(res):
-    result = choice(res).upper()
+    result = random.choice(res).upper()
     return result
-
-
-# print(get_word(word_list))
 
 
 # функция получения текущего состояния
@@ -117,20 +110,19 @@ else:
 
 
 def play(word):
-    word_comlpetion = "_" * len(word)
-    guessed = False  # сигнальная метка
     guessed_letters = []  # список уже названных букв
     guessed_words = []  # список уже названных слов
     tries = 6
     print(display_hangman(tries))
-    print(word_comlpetion)
+    print(f"Ваше количество попыток/Your number of tries: {tries}")
     print()
+    print("_" * len(word))
 
     def valid_input():
         while True:
             if lang == "r":
-
                 alphabet = input("Введите букву или слово целиком:").upper()
+                print()
                 if not alphabet.isalpha():
                     print("Повторите ввод")
                 else:
@@ -143,7 +135,42 @@ def play(word):
                 else:
                     return alphabet
 
-    input_val = valid_input()
+    input_val = valid_input().upper()
+
+    def Letter_in_a_word(result, input_Letter):
+        while True:
+            if lang == "r":
+                if input_Letter in result:
+                    res = ""
+                    print("Вы угадали букву!", res, sep="\n")
+                    for i in result:
+                        if input_Letter != i:
+                            res += "_"
+                        if input_Letter == i:
+                            res += i
+                    print(res)
+                    return res, valid_input()
+                else:
+                    print("Вы не угалали букву :(")
+                    print(display_hangman(tries - 1))
+                    print(f"Ваше количество попыток: {tries - 1}")
+            else:
+                if input_Letter in result:
+                    res = ""
+                    print("You guessed the letter!", res, sep="\n")
+                    for i in result:
+                        if input_Letter != i:
+                            res += "_"
+                        if input_Letter == i:
+                            res += i
+                    print(res)
+                    return res
+                else:
+                    print("You missed the letter :(")
+                    print(display_hangman(tries - 1))
+                    print(f"Your number of tries: {tries-1}")
+
+    Letter_in_a_word(get_word(word_list), input_val)
 
 
 play(get_word(word_list))
