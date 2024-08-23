@@ -121,7 +121,7 @@ else:
     print("Let's play Hangman!")
 
 
-def valid_input() -> str:  # не обязательно делать вложенной, вытащи её наружу
+def valid_input() -> tuple:
     while True:
         if lang == "r":
 
@@ -132,7 +132,7 @@ def valid_input() -> str:  # не обязательно делать вложе
             if not alphabet.isalpha():
                 print("Повторите ввод")
             else:
-                return (alphabet,)
+                return alphabet
         else:
             alphabet = input("Enter the letter or word chief:").upper()
             if not alphabet.isalpha():
@@ -144,9 +144,7 @@ def valid_input() -> str:  # не обязательно делать вложе
 input_val = valid_input().upper()
 
 
-def Letter_in_a_word(
-    result: str, input_Letter: str
-):  # не обязательно делать вложенной, вытащи её наружу
+def Letter_in_a_word(result: str, input_Letter: str):
     while True:  # Подумай, нужен ли тут вообще этот цикл?
         if lang == "r":
             if input_Letter in result:
