@@ -121,14 +121,11 @@ else:
     print("Let's play Hangman!")
 
 
-def valid_input() -> tuple:
+def valid_input() -> str:
     while True:
         if lang == "r":
 
-            alphabet = input(
-                "Введите букву или слово целиком:"
-            ).upper()  # Но тут после повторного ввода, программа завершает работу
-            print()  # Зачем? Добавь /n в инпут
+            alphabet = input("Введите букву или слово целиком:").upper()
             if not alphabet.isalpha():
                 print("Повторите ввод")
             else:
