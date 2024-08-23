@@ -1,7 +1,5 @@
 import random
 
-# from main import lang
-
 
 word_list = ["ПОЯСОЧЕК"]
 # with open("D:/Python_files/Hangman/word_rus.txt", encoding="utf8") as file:
@@ -163,4 +161,6 @@ def Letter_in_a_word(result: str, input_Letter: str):
                 )  # Ты не обновил переменную tries. Можно так - Погугли про моржовый оператор
                 print(f"Ваше количество попыток: {tries}")
                 # И что происходит дальше? Цикл пошел по новой, вместо того, чтобы продолжить игру)
-        Letter_in_a_word(get_word(word_list), input_val)
+
+
+Letter_in_a_word(get_word(word_list), input_val)
