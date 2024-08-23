@@ -1,17 +1,16 @@
 import random
 
-# from import_random import *
-
-
-# guessed_letters = []  # список уже названных букв
-# guessed_words = []  # список уже названных слов
-# tries = 6
+# from main import lang
 
 
 word_list = ["ПОЯСОЧЕК"]
 # with open("D:/Python_files/Hangman/word_rus.txt", encoding="utf8") as file:
 #     for line in file:
 #         word_list.append(line.strip())
+
+guessed_letters = []  # список уже названных букв
+guessed_words = []  # список уже названных слов
+tries = 6
 
 
 def get_word(res):
@@ -112,6 +111,11 @@ lang = valid_lang()
 
 if lang == "r":
     print("Давайте играть в угадайку слов!")
+    print(display_hangman(tries))
+    print(f"Ваше количество попыток/Your number of tries: {tries}")
+    print()
+    print("_" * len(get_word(word_list)))
+
 
 else:
     print("Let's play Hangman!")
@@ -128,7 +132,7 @@ def valid_input() -> str:  # не обязательно делать вложе
             if not alphabet.isalpha():
                 print("Повторите ввод")
             else:
-                return alphabet
+                return (alphabet,)
         else:
             alphabet = input("Enter the letter or word chief:").upper()
             if not alphabet.isalpha():
@@ -164,6 +168,4 @@ def Letter_in_a_word(
                 )  # Ты не обновил переменную tries. Можно так - Погугли про моржовый оператор
                 print(f"Ваше количество попыток: {tries}")
                 # И что происходит дальше? Цикл пошел по новой, вместо того, чтобы продолжить игру)
-
-
-Letter_in_a_word(get_word(word_list), input_val)
+        Letter_in_a_word(get_word(word_list), input_val)
