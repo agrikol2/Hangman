@@ -153,7 +153,7 @@ def Letter_in_a_word(result: str, input_Letter: str, counter):
                         res += i
                     if input_Letter == result:
                         res += input_Letter
-                        print(f"Вы угадали все слово целиком", word_list)
+                        print(f"Вы угадали все слово целиком", word_list[0])
                         exit()
                 print("Вы угадали букву!", res, sep="\n")
                 # print(res)
