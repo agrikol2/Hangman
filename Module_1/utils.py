@@ -6,9 +6,9 @@ word_list = ["ПОЯСОЧЕК"]
 #     for line in file:
 #         word_list.append(line.strip())
 
-guessed_letters = []  # список уже названных букв
-guessed_words = []  # список уже названных слов
-tries = 6
+guessed_letters: list = []  # список уже названных букв
+guessed_words: list = []  # список уже названных слов
+tries: int = 6
 
 
 def get_word(res):
@@ -139,28 +139,31 @@ def valid_input() -> str:
 input_val = valid_input().upper()
 
 
-def Letter_in_a_word(result: str, input_Letter: str):
-    while True:  # Подумай, нужен ли тут вообще этот цикл?
+def Letter_in_a_word(result: str, input_Letter: str, counter):
+    while counter > 0:
+        res = ""
         if lang == "r":
             if input_Letter in result:
-                res = ""
-                print("Вы угадали букву!", res, sep="\n")
+                # res = ""
+
                 for i in result:
                     if input_Letter != i:
                         res += "_"
                     if input_Letter == i:
                         res += i
-                print(res)
-                return res, valid_input()  # Тут у тебя шиза слегонца
-                # Поэтому и не происходит ввод второй буквы - ты выходишь из функции и заканчиваешь игру
-
+                    if input_Letter == result:
+                        res += input_Letter
+                        print(f"Вы угадали все слово целиком", word_list)
+                        exit()
+                print("Вы угадали букву!", res, sep="\n")
+                # print(res)
+                return res
             else:
-                print("Вы не угалали букву :(")
-                print(
-                    display_hangman(tries := tries - 1)
-                )  # Ты не обновил переменную tries. Можно так - Погугли про моржовый оператор
-                print(f"Ваше количество попыток: {tries}")
-                # И что происходит дальше? Цикл пошел по новой, вместо того, чтобы продолжить игру)
+                print(display_hangman(counter := counter - 1))
+                print(res)
+                valid_input()
+    print("У вас закончились попытки, игра закончена")
+    return
 
 
-Letter_in_a_word(get_word(word_list), input_val)
+Letter_in_a_word(get_word(word_list), input_val, tries)
