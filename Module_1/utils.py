@@ -140,8 +140,9 @@ input_val = valid_input().upper()
 
 
 def Letter_in_a_word(result: str, input_Letter: str, counter):
-    while counter > 0:
-        res = ""
+    res = ""
+    while counter > 1:
+
         if lang == "r":
             if input_Letter in result:
                 # res = ""
@@ -153,17 +154,16 @@ def Letter_in_a_word(result: str, input_Letter: str, counter):
                         res += i
                     if input_Letter == result:
                         res += input_Letter
-                        print(f"Вы угадали все слово целиком", word_list[0])
+                        print(f"Вы угадали все слово целиком: {word_list[0]}")
                         exit()
                 print("Вы угадали букву!", res, sep="\n")
-                # print(res)
+                valid_input()
                 return res
             else:
                 print(display_hangman(counter := counter - 1))
                 print(res)
                 valid_input()
-    print("У вас закончились попытки, игра закончена")
-    return
+    print("У вас закончились попытки, игра закончена", display_hangman(tries - 6))
 
 
 Letter_in_a_word(get_word(word_list), input_val, tries)
