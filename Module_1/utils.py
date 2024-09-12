@@ -1,7 +1,7 @@
 import random
 
 
-word_list = ["ПОЯСОЧЕК"]
+word_list = ["поясочек"]
 # with open("D:/Python_files/Hangman/word_rus.txt", encoding="utf8") as file:
 #     for line in file:
 #         word_list.append(line.strip())
@@ -17,9 +17,8 @@ def get_word(res):
 
 
 # функция получения текущего состояния
-def display_hangman(tries):
-    stages = [  # финальное состояние: голова, торс, обе руки, обе ноги
-        """
+stages = [  # финальное состояние: голова, торс, обе руки, обе ноги
+    """
                    --------
                    |      |
                    |      O
@@ -28,8 +27,8 @@ def display_hangman(tries):
                    |     / \\
                    -
                 """,
-        # голова, торс, обе руки, одна нога
-        """
+    # голова, торс, обе руки, одна нога
+    """
                    --------
                    |      |
                    |      O
@@ -38,8 +37,8 @@ def display_hangman(tries):
                    |     /
                    -
                 """,
-        # голова, торс, обе руки
-        """
+    # голова, торс, обе руки
+    """
                    --------
                    |      |
                    |      O
@@ -48,8 +47,8 @@ def display_hangman(tries):
                    |
                    -
                 """,
-        # голова, торс и одна рука
-        """
+    # голова, торс и одна рука
+    """
                    --------
                    |      |
                    |      O
@@ -58,8 +57,8 @@ def display_hangman(tries):
                    |
                    -
                 """,
-        # голова и торс
-        """
+    # голова и торс
+    """
                    --------
                    |      |
                    |      O
@@ -68,8 +67,8 @@ def display_hangman(tries):
                    |
                    -
                 """,
-        # голова
-        """
+    # голова
+    """
                    --------
                    |      |
                    |      O
@@ -78,8 +77,8 @@ def display_hangman(tries):
                    |
                    -
                 """,
-        # начальное состояние
-        """
+    # начальное состояние
+    """
                    --------
                    |      |
                    |
@@ -88,8 +87,7 @@ def display_hangman(tries):
                    |
                    -
                 """,
-    ]
-    return stages[tries]
+]
 
 
 def valid_lang() -> str:
@@ -109,8 +107,9 @@ lang = valid_lang()
 
 if lang == "r":
     print("Давайте играть в угадайку слов!")
-    print(display_hangman(tries))
-    print(f"Ваше количество попыток/Your number of tries: {tries}")
+    print(stages[tries])
+    print(f"Ваше количество попыток: {tries}")
+
     print()
     print("_" * len(get_word(word_list)))
 
@@ -122,48 +121,41 @@ else:
 def valid_input() -> str:
     while True:
         if lang == "r":
-
             alphabet = input("Введите букву или слово целиком:").upper()
             if not alphabet.isalpha():
                 print("Повторите ввод")
             else:
-                return alphabet
-        else:
-            alphabet = input("Enter the letter or word chief:").upper()
-            if not alphabet.isalpha():
-                print("Please, re-enter: ")
-            else:
-                return alphabet
+                return alphabet.upper()
 
 
-input_val = valid_input().upper()
+input_val = valid_input()
 
 
-def Letter_in_a_word(result: str, input_Letter: str, counter):
-    res = ""
-    while counter > 1:
+def Letter_in_a_word(result: str, input_Letter: str, tries):
+    res = "_" * len(get_word(word_list))
+    while tries > 1:
 
         if lang == "r":
             if input_Letter in result:
-                # res = ""
-
                 for i in result:
                     if input_Letter != i:
                         res += "_"
                     if input_Letter == i:
                         res += i
                     if input_Letter == result:
-                        res += input_Letter
+                        res += input_Letter  # Удалить
                         print(f"Вы угадали все слово целиком: {word_list[0]}")
                         exit()
                 print("Вы угадали букву!", res, sep="\n")
-                valid_input()
-                return res
+                input_Letter = valid_input()
+
             else:
-                print(display_hangman(counter := counter - 1))
+                print(stages[tries - 1])
                 print(res)
+                print(tries := tries - 1)
                 valid_input()
-    print("У вас закончились попытки, игра закончена", display_hangman(tries - 6))
+
+    print("У вас закончились попытки, игра закончена", stages - 6)
 
 
 Letter_in_a_word(get_word(word_list), input_val, tries)
