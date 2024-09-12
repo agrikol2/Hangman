@@ -1,18 +1,29 @@
 import random
 
 
-word_list = ["поясочек"]
+word_list = [
+    "СЛОВО",
+    "КЛИМАТ",
+    "ЖУК",
+    "ГРАДУСНИК",
+    "ЛЮБОВЬ",
+    "ЗНАЧОК",
+    "ТАРЕЛКА",
+    "АВТОМОБИЛЬ",
+    "БУЛКА",
+    "ТЕЛЕФОН",
+]
 # with open("D:/Python_files/Hangman/word_rus.txt", encoding="utf8") as file:
 #     for line in file:
-#         word_list.append(line.strip())
+#         word_list.append(line.strip().upper())
 
-guessed_letters: list = []  # список уже названных букв
-guessed_words: list = []  # список уже названных слов
+
 tries: int = 6
+
+result = random.choice(word_list)
 
 
 def get_word(res):
-    result = random.choice(res).upper()
     return result
 
 
@@ -132,30 +143,33 @@ input_val = valid_input()
 
 
 def Letter_in_a_word(result: str, input_Letter: str, tries):
-    res = "_" * len(get_word(word_list))
+    res = "_" * len(result)
     while tries > 1:
-
         if lang == "r":
             if input_Letter in result:
-                for i in result:
-                    if input_Letter != i:
-                        res += "_"
-                    if input_Letter == i:
-                        res += i
-                    if input_Letter == result:
-                        res += input_Letter  # Удалить
-                        print(f"Вы угадали все слово целиком: {word_list[0]}")
-                        exit()
+                if input_Letter == result:
+                    print(f"Вы угадали все слово целиком: {word_list[0]}")
+                    exit()
+                for i in range(len(result)):
+                    if input_Letter == result[i]:
+                        res = res[:i] + result[i] + res[i + 1 :]
+                if res == result:
+                    print(f"Вы угадали все слово целиком: {result}")
+                    exit()
                 print("Вы угадали букву!", res, sep="\n")
                 input_Letter = valid_input()
 
             else:
-                print(stages[tries - 1])
+                print("Вы не угадали букву. Попробуйте ещё раз")
+                print(stages[tries := tries - 1])
+                print(f"Количество оставшихся попыток: {tries}")
                 print(res)
-                print(tries := tries - 1)
-                valid_input()
-
-    print("У вас закончились попытки, игра закончена", stages - 6)
+                input_Letter = valid_input()
+    print(
+        f"У вас закончились попытки, игра закончена. Загаданное слово: {result}",
+        stages[tries - 1],
+    )
+    exit()
 
 
 Letter_in_a_word(get_word(word_list), input_val, tries)
