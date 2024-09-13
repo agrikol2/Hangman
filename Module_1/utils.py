@@ -166,10 +166,6 @@ def Letter_in_a_word(result: str, input_Letter: str, tries):
                 print(f"Количество оставшихся попыток: {tries}")
                 print(res)
                 input_Letter = valid_input()
-                # if (
-                #     tries > 0
-                # ):  # Проверка, чтобы не предлагать ввод, если попыток больше нет
-                #     input_Letter = valid_input()
     print(
         f"У вас закончились попытки, игра закончена. Загаданное слово: {result}",
         stages[tries - 7],
