@@ -4,15 +4,6 @@ import random
 word_list = [
     "СЛОВО",
     "КЛИМАТ",
-    "СТЕНА",
-    "КЛАВИАТУРА",
-    "АВТОМОБИЛЬ",
-    "КОЛОННА",
-    "КОШКА",
-    "БУТЕРБРОД",
-    "СТЕКЛО",
-    "ДВЕРЬ",
-    "ШТОРА",
 ]
 # with open("D:/Python_files/Hangman/word_rus.txt", encoding="utf8") as file:
 #     for line in file:
@@ -22,6 +13,8 @@ word_list = [
 tries: int = 6
 
 result = random.choice(word_list)
+
+guessed_letters = []
 
 
 def get_word(res):
@@ -159,17 +152,17 @@ def Letter_in_a_word(result: str, input_Letter: str, tries):
                     exit()
                 print("Вы угадали букву!", res, sep="\n")
                 input_Letter = valid_input()
-
             else:
-                print("Вы не угадали букву. Попробуйте ещё раз")
+
                 print(stages[tries := tries - 1])
+                if tries == 0:
+                    break
+                print("Вы не угадали букву. Попробуйте ещё раз")
                 print(f"Количество оставшихся попыток: {tries}")
                 print(res)
                 input_Letter = valid_input()
-    print(
-        f"У вас закончились попытки, игра закончена. Загаданное слово: {result}",
-        stages[tries - 7],
-    )
+
+    print(f"У вас закончились попытки, игра закончена. Загаданное слово: {result}")
     exit()
 
 
