@@ -14,8 +14,6 @@ tries: int = 6
 
 result = random.choice(word_list)
 
-guessed_letters = []
-
 
 def get_word(res):
     return result
@@ -133,37 +131,40 @@ def valid_input() -> str:
                 return alphabet.upper()
 
 
-input_val = valid_input()
-
-
-def Letter_in_a_word(result: str, input_Letter: str, tries):
+def Letter_in_a_word(result: str, tries: int):
+    guessed_letters = []
     res = "_" * len(result)
     while tries > 0:
+        input_Letter = valid_input()
         if lang == "r":
-            if input_Letter in result:
-                if input_Letter == result:
-                    print(f"Вы угадали все слово целиком: {result}")
-                    exit()
-                for i in range(len(result)):
-                    if input_Letter == result[i]:
-                        res = res[:i] + result[i] + res[i + 1 :]
-                if res == result:
-                    print(f"Вы угадали все слово целиком: {result}")
-                    exit()
-                print("Вы угадали букву!", res, sep="\n")
-                input_Letter = valid_input()
-            else:
 
-                print(stages[tries := tries - 1])
-                if tries == 0:
-                    break
-                print("Вы не угадали букву. Попробуйте ещё раз")
-                print(f"Количество оставшихся попыток: {tries}")
-                print(res)
-                input_Letter = valid_input()
+            if input_Letter not in guessed_letters:
+                guessed_letters.append(input_Letter)
+            else:
+                print("Вы уже вводили эту букву, попробуйте другую")
+                continue
+
+            if input_Letter == result:
+                print(f"Вы угадали все слово целиком: {result}")
+                exit()
+            for i in range(len(result)):
+                if input_Letter == result[i]:
+                    res = res[:i] + result[i] + res[i + 1 :]
+            if res == result:
+                print(f"Вы угадали все слово целиком: {result}")
+                exit()
+
+            print("Вы угадали букву!", res, sep="\n")
+
+            print(stages[tries := tries - 1])
+            if tries == 0:
+                break
+            print("Вы не угадали букву. Попробуйте ещё раз")
+            print(f"Количество оставшихся попыток: {tries}")
+            print(res)
 
     print(f"У вас закончились попытки, игра закончена. Загаданное слово: {result}")
     exit()
 
 
-Letter_in_a_word(get_word(word_list), input_val, tries)
+Letter_in_a_word(get_word(word_list), tries)
